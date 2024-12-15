@@ -122,7 +122,7 @@ TFM_IDEALISTA_API_PRICE_PRED/
 ## Documentation
 
 The project documentation is available in HTML format, created with Sphinx. You can view it [here](docs/_build/html/index.html).
-The Idealista API documentation has also been saved in the docs folder, the [OAuth2 Documentation](docs/idealista_api_doc/oauth2-documentations.pdf) and the [Property Search API Documentation](docs/idealista_api_docs/property-search-api-v3_5.pdf)
+The Idealista API documentation has also been saved in the docs folder, the [OAuth2 Documentation](docs/idealista_api_docs/oauth2-documentation.pdf) and the [Property Search API Documentation](docs/idealista_api_docs/property-search-api-v3_5.pdf)
 
 
 ## License
