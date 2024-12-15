@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>TFM &#8212; TFM_IDEALISTA_API_PRICE_PRED 15/12/2024 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=7404e68a"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="TFM_IDEALISTA_API_PRICE_PRED documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="tfm">
+<h1>TFM<a class="headerlink" href="#tfm" title="Link to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="module-api_extract_prep.idealista_api_extractor.config">
+<span id="api-extract-prep"></span><h1>API Extract Prep<a class="headerlink" href="#module-api_extract_prep.idealista_api_extractor.config" title="Link to this heading">¶</a></h1>
+<p>Configuration file for the Idealista API.</p>
+<p>This file contains the necessary configuration settings to authenticate
+with the Idealista API.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>API_KEY (str): Your Idealista API key.
+SECRET (str): Your Idealista API secret key.</p>
+</dd>
+</dl>
+<p id="module-api_extract_prep.idealista_api_extractor.filters">Filter file for the Idealista API.</p>
+<p>This file contains the necessary filters for API extract from the Idealista API.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><ul class="simple">
+<li><p>base_url (str): The base URL of the Idealista API.</p></li>
+<li><p>country (str): The country code for the search (e.g., ‘es’ for Spain).</p></li>
+<li><p>operation (str): The operation type (e.g., ‘sale’ for sales listings).</p></li>
+<li><p>max_items (str): Maximum number of items to fetch per request (items per page, maximum 50).</p></li>
+<li><p>order (str): The order in which results should be sorted.</p></li>
+<li><p>center (str): Latitude and longitude of the search center point.</p></li>
+<li><p>distance (str): Search radius in meters.</p></li>
+<li><p>property_type (str): Type of property (e.g., ‘homes’, ‘offices’, ‘premises’).</p></li>
+<li><p>sort (str): Sorting criteria (e.g., ‘asc’ or ‘desc’).</p></li>
+<li><p>maxprice (str): Maximum price filter.</p></li>
+<li><p>language (str): Language for the results (e.g., ‘es’ for Idealista.com).</p></li>
+</ul>
+</dd>
+<dt>Note:</dt><dd><p>Refer to the documentation folder for further information.</p>
+</dd>
+</dl>
+<dl class="py class" id="module-api_extract_prep.idealista_api_extractor.extract_data">
+<dt class="sig sig-object py" id="api_extract_prep.idealista_api_extractor.extract_data.IdealistaAPI">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api_extract_prep.idealista_api_extractor.extract_data.</span></span><span class="sig-name descname"><span class="pre">IdealistaAPI</span></span><a class="headerlink" href="#api_extract_prep.idealista_api_extractor.extract_data.IdealistaAPI" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class to handle interactions with the Idealista API, including authentication,
+data retrieval, and storing data in MongoDB.</p>
+<dl>
+<dt>Attributes:</dt><dd><p>api_key (str): The API key for authenticating with Idealista API.
+secret (str): The secret key for authenticating with Idealista API.
+mongo_handler (MongoDBHandler): An instance of the MongoDBHandler class used for</p>
+<blockquote>
+<div><p>interacting with MongoDB.</p>
+</div></blockquote>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.idealista_api_extractor.extract_data.IdealistaAPI.create_search_url">
+<span class="sig-name descname"><span class="pre">create_search_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#api_extract_prep.idealista_api_extractor.extract_data.IdealistaAPI.create_search_url" title="Link to this definition">¶</a></dt>
+<dd><p>Constructs a search URL by combining the base URL and search parameters for Idealista API.</p>
+<p>This function takes predefined variables (such as operation type, country, maximum items, etc.)
+and combines them into a properly formatted URL string, which can be used to send a search
+request to the Idealista API.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>str: The formatted search URL for sending requests to the Idealista API.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.idealista_api_extractor.extract_data.IdealistaAPI.extract_api_data">
+<span class="sig-name descname"><span class="pre">extract_api_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#api_extract_prep.idealista_api_extractor.extract_data.IdealistaAPI.extract_api_data" title="Link to this definition">¶</a></dt>
+<dd><p>Extracts property data from the Idealista API and stores it in MongoDB.</p>
+<p>This method fetches data page by page, retrieves property information, and inserts it
+into MongoDB.</p>
+<p>If the data extraction fails or there is no data, the process will terminate gracefully.</p>
+<dl class="simple">
+<dt>Raises:</dt><dd><p>Exception: If there is an error during data extraction or database insertion.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.idealista_api_extractor.extract_data.IdealistaAPI.fetch_data">
+<span class="sig-name descname"><span class="pre">fetch_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#api_extract_prep.idealista_api_extractor.extract_data.IdealistaAPI.fetch_data" title="Link to this definition">¶</a></dt>
+<dd><p>Sends a request to the Idealista API and retrieves data for a specific page.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>url (str): The search URL with pagination to fetch property data.</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: The JSON response from the API, containing property data.</p>
+</dd>
+<dt>Raises:</dt><dd><p>Exception: If the API request fails or the response is not as expected.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.idealista_api_extractor.extract_data.IdealistaAPI.get_oauth_token">
+<span class="sig-name descname"><span class="pre">get_oauth_token</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#api_extract_prep.idealista_api_extractor.extract_data.IdealistaAPI.get_oauth_token" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves an OAuth token from the Idealista API using the provided API key and secret.</p>
+<p>This method constructs a base64 encoded authorization header and sends a POST request
+to the Idealista API to obtain an access token.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>str: The access token for API authentication.</p>
+</dd>
+<dt>Raises:</dt><dd><p>Exception: If the API request fails or the response does not contain an access token.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-api_extract_prep.mongodb_operations.config">Configuration file for MongoDB.</p>
+<p>This file contains the necessary configuration settings to connect to
+MongoDB for storing data fetched from the Idealista API.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>MONGO_URI (str): The URI for connecting to MongoDB (e.g., ‘mongodb://localhost:27017’).
+MONGO_DB (str): The name of the MongoDB database (e.g., ‘idealista_api_db’).
+MONGO_COLLECTION (str): The MongoDB collection name where data will be stored (e.g., ‘bcn_homes_2411’).</p>
+</dd>
+</dl>
+<dl class="py class" id="module-api_extract_prep.mongodb_operations.insert_read_data">
+<dt class="sig sig-object py" id="api_extract_prep.mongodb_operations.insert_read_data.MongoDBHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api_extract_prep.mongodb_operations.insert_read_data.</span></span><span class="sig-name descname"><span class="pre">MongoDBHandler</span></span><a class="headerlink" href="#api_extract_prep.mongodb_operations.insert_read_data.MongoDBHandler" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class to handle MongoDB operations, including connecting to a collection,
+inserting data, and reading data.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>uri (str): The URI for connecting to MongoDB, sourced from the configuration file.
+db_name (str): The name of the database in MongoDB, sourced from the configuration file.
+collection_name (str): The name of the collection in MongoDB, sourced from the configuration file.
+collection (Collection): The MongoDB collection object used for performing operations.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.mongodb_operations.insert_read_data.MongoDBHandler.connect_to_mongo">
+<span class="sig-name descname"><span class="pre">connect_to_mongo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api_extract_prep.mongodb_operations.insert_read_data.MongoDBHandler.connect_to_mongo" title="Link to this definition">¶</a></dt>
+<dd><p>Establish a connection to the MongoDB collection.</p>
+<p>This method connects to the MongoDB instance using the connection string provided
+in the configuration file, and returns the collection object for performing operations.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>Collection: MongoDB collection object for performing operations.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.mongodb_operations.insert_read_data.MongoDBHandler.insert_data">
+<span class="sig-name descname"><span class="pre">insert_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#api_extract_prep.mongodb_operations.insert_read_data.MongoDBHandler.insert_data" title="Link to this definition">¶</a></dt>
+<dd><p>Inserts multiple documents into the MongoDB collection.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>data (list): A list of dictionaries representing documents to insert. Each dictionary should</dt><dd><p>contain key-value pairs corresponding to the fields in the MongoDB collection.</p>
+</dd>
+</dl>
+</dd>
+<dt>Example:</dt><dd><p>data = [{‘propertyCode’: ‘105376770’, ‘price’: 249000.0, ‘rooms’: 2}, …]
+handler.insert_data(data)</p>
+</dd>
+</dl>
+<p>If the data is empty, the method will print “No data to insert.”</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.mongodb_operations.insert_read_data.MongoDBHandler.read_data">
+<span class="sig-name descname"><span class="pre">read_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#api_extract_prep.mongodb_operations.insert_read_data.MongoDBHandler.read_data" title="Link to this definition">¶</a></dt>
+<dd><p>Reads all documents from the MongoDB collection.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>list: A list of documents from the collection. Each document is represented as a dictionary.</p>
+</dd>
+<dt>Example:</dt><dd><p>documents = handler.read_data()
+print(documents)  # Outputs the list of documents</p>
+</dd>
+</dl>
+<p>This method retrieves all documents from the MongoDB collection and returns them as a list.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class" id="module-api_extract_prep.eda_and_transformations.eda_methods">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.eda_methods.EdaMethods">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api_extract_prep.eda_and_transformations.eda_methods.</span></span><span class="sig-name descname"><span class="pre">EdaMethods</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.eda_methods.EdaMethods" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.eda_methods.EdaMethods.plot_boolean_boxplots">
+<span class="sig-name descname"><span class="pre">plot_boolean_boxplots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">price_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.eda_methods.EdaMethods.plot_boolean_boxplots" title="Link to this definition">¶</a></dt>
+<dd><p>Plots box plots for all boolean columns in a DataFrame to visualize
+their effect on the specified price column. The plots display side-by-side 
+price distributions for each boolean column, using softer colors for True and False.</p>
+<section id="parameters">
+<h2>Parameters:<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>price_column<span class="classifier">str</span></dt><dd><p>The name of the column in the DataFrame representing price values.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns:<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>None</dt><dd><p>This function does not return any values. It directly displays the plots.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.eda_methods.EdaMethods.plot_boxplot">
+<span class="sig-name descname"><span class="pre">plot_boxplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.eda_methods.EdaMethods.plot_boxplot" title="Link to this definition">¶</a></dt>
+<dd><p>Plots a box plot for a specified numerical column.</p>
+<section id="id1">
+<h2>Parameters:<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>column<span class="classifier">str</span></dt><dd><p>The name of the numerical column to visualize with a box plot.</p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h2>Returns:<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>None</dt><dd><p>This function does not return any values. It directly displays the box plot.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.eda_methods.EdaMethods.plot_boxplot_for_categories">
+<span class="sig-name descname"><span class="pre">plot_boxplot_for_categories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">categorical_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numerical_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.eda_methods.EdaMethods.plot_boxplot_for_categories" title="Link to this definition">¶</a></dt>
+<dd><p>Plots a box plot for the numerical column distribution for each category in the categorical column,
+limiting to the top 10 categories by count and ordering them by the higher values of the numerical column.</p>
+<section id="id3">
+<h2>Parameters:<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>categorical_column<span class="classifier">str</span></dt><dd><p>The name of the column in the DataFrame representing categorical values (e.g., districts, types).</p>
+</dd>
+<dt>numerical_column<span class="classifier">str</span></dt><dd><p>The name of the column representing the numerical values (e.g., price).</p>
+</dd>
+</dl>
+</section>
+<section id="id4">
+<h2>Returns:<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>None</dt><dd><p>This function does not return any values. It directly displays the box plot.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.eda_methods.EdaMethods.plot_correlation_heatmap">
+<span class="sig-name descname"><span class="pre">plot_correlation_heatmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(12,</span> <span class="pre">8)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.eda_methods.EdaMethods.plot_correlation_heatmap" title="Link to this definition">¶</a></dt>
+<dd><p>Plots a heatmap of the correlation matrix for specified numerical columns in a DataFrame.</p>
+<section id="id5">
+<h2>Parameters:<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>columns<span class="classifier">List[str]</span></dt><dd><p>A list of column names to include in the correlation heatmap.</p>
+</dd>
+<dt>figsize<span class="classifier">Optional[tuple], default (12, 8)</span></dt><dd><p>Size of the figure for the heatmap.</p>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h2>Returns:<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>None</dt><dd><p>This function does not return any values. It directly displays the heatmap.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.eda_methods.EdaMethods.plot_counts">
+<span class="sig-name descname"><span class="pre">plot_counts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.eda_methods.EdaMethods.plot_counts" title="Link to this definition">¶</a></dt>
+<dd><p>Plots a bar chart showing the count of properties in each district, 
+with a maximum of 30 items displayed.</p>
+<section id="id7">
+<h2>Parameters:<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>column<span class="classifier">str</span></dt><dd><p>The name of the column in the DataFrame representing district names.</p>
+</dd>
+</dl>
+</section>
+<section id="id8">
+<h2>Returns:<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>None</dt><dd><p>This function does not return any values. It directly displays the bar plot.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.eda_methods.EdaMethods.plot_distribution">
+<span class="sig-name descname"><span class="pre">plot_distribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.eda_methods.EdaMethods.plot_distribution" title="Link to this definition">¶</a></dt>
+<dd><p>Plots a histogram with a kernel density estimate (KDE) overlay for a specified numerical column,
+as well as a QQ-Plot to assess normality.</p>
+<section id="id9">
+<h2>Parameters:<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>column<span class="classifier">str</span></dt><dd><p>The name of the column in the DataFrame for which to plot the distribution.</p>
+</dd>
+</dl>
+</section>
+<section id="id10">
+<h2>Returns:<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>None</dt><dd><p>This function does not return any values. It directly displays the histogram and QQ-Plot.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.eda_methods.EdaMethods.plot_scatter">
+<span class="sig-name descname"><span class="pre">plot_scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(10,</span> <span class="pre">6)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.eda_methods.EdaMethods.plot_scatter" title="Link to this definition">¶</a></dt>
+<dd><p>Plots a scatter plot for two specified columns, with an optional hue.</p>
+<section id="id11">
+<h2>Parameters:<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>x<span class="classifier">str</span></dt><dd><p>The name of the column for the x-axis.</p>
+</dd>
+<dt>y<span class="classifier">str</span></dt><dd><p>The name of the column for the y-axis.</p>
+</dd>
+<dt>hue<span class="classifier">Optional[str], default None</span></dt><dd><p>The name of the column to use for color coding the points (optional).</p>
+</dd>
+<dt>figsize<span class="classifier">tuple, default (10, 6)</span></dt><dd><p>The size of the figure.</p>
+</dd>
+</dl>
+</section>
+<section id="id12">
+<h2>Returns:<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>None</dt><dd><p>This function does not return any values. It directly displays the scatter plot.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.eda_methods.EdaMethods.plot_scatter_matrix">
+<span class="sig-name descname"><span class="pre">plot_scatter_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Scatter</span> <span class="pre">Plots</span> <span class="pre">for</span> <span class="pre">All</span> <span class="pre">Numerical</span> <span class="pre">Variables'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.eda_methods.EdaMethods.plot_scatter_matrix" title="Link to this definition">¶</a></dt>
+<dd><p>Plots a scatter matrix (pair plot) for specified numerical columns in a DataFrame.</p>
+<section id="id13">
+<h2>Parameters:<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>columns<span class="classifier">List[str]</span></dt><dd><p>A list of column names to include in the scatter matrix.</p>
+</dd>
+<dt>title<span class="classifier">Optional[str], default ‘Scatter Plots for All Numerical Variables’</span></dt><dd><p>The title for the scatter matrix plot.</p>
+</dd>
+</dl>
+</section>
+<section id="id14">
+<h2>Returns:<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>None</dt><dd><p>This function does not return any values. It directly displays the scatter matrix plot.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.eda_methods.EdaMethods.plot_vif">
+<span class="sig-name descname"><span class="pre">plot_vif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.eda_methods.EdaMethods.plot_vif" title="Link to this definition">¶</a></dt>
+<dd><p>Calculates and prints the Variance Inflation Factor (VIF) for specified numerical columns in a DataFrame.</p>
+<section id="id15">
+<h2>Parameters:<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>columns<span class="classifier">List[str]</span></dt><dd><p>A list of column names to include in the VIF calculation.</p>
+</dd>
+</dl>
+</section>
+<section id="id16">
+<h2>Returns:<a class="headerlink" href="#id16" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>None</dt><dd><p>This function does not return any values. It directly prints the VIF values.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class" id="module-api_extract_prep.eda_and_transformations.transform_data">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.transform_data.TransformData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">api_extract_prep.eda_and_transformations.transform_data.</span></span><span class="sig-name descname"><span class="pre">TransformData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.transform_data.TransformData" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class to perform various transformations on a DataFrame containing real estate data.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>df<span class="classifier">pd.DataFrame</span></dt><dd><p>The input DataFrame containing raw data.</p>
+</dd>
+</dl>
+</section>
+<section id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>filters()</dt><dd><p>Remove duplicates based on propertyCode and filter rows for specific conditions.</p>
+</dd>
+<dt>drop_unnecessary_columns()</dt><dd><p>Drop unnecessary columns from the DataFrame.</p>
+</dd>
+<dt>remove_outliers()</dt><dd><p>Remove outliers in specified columns based on the IQR method.</p>
+</dd>
+<dt>join_with_district_prices(file)</dt><dd><p>Join the DataFrame with district-level price data from a specified file.</p>
+</dd>
+<dt>map_status()</dt><dd><p>Map the ‘status’ column to integer values and fill missing values.</p>
+</dd>
+<dt>fill_floor()</dt><dd><p>Transform and fill the ‘floor’ column based on specific rules.</p>
+</dd>
+<dt>map_prop_type()</dt><dd><p>Map the ‘propertyType’ column to integer values and fill missing values.</p>
+</dd>
+<dt>convert_bool_columns()</dt><dd><p>Convert specified columns to boolean and then to integers.</p>
+</dd>
+<dt>map_group_description()</dt><dd><p>Map the ‘highlight.groupDescription’ column to numerical values.</p>
+</dd>
+<dt>create_new_features()</dt><dd><p>Create new features from existing columns.</p>
+</dd>
+<dt>create_amenity_score()</dt><dd><p>Calculate an amenity score based on the sum of boolean amenity columns.</p>
+</dd>
+<dt>apply_one_hot_encoding()</dt><dd><p>Apply one-hot encoding to categorical columns.</p>
+</dd>
+<dt>transform()</dt><dd><p>Apply all transformations in sequence.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.transform_data.TransformData.apply_one_hot_encoding">
+<span class="sig-name descname"><span class="pre">apply_one_hot_encoding</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.transform_data.TransformData.apply_one_hot_encoding" title="Link to this definition">¶</a></dt>
+<dd><p>Applies one-hot encoding to the ‘neighborhood’ and ‘district’ columns.</p>
+<p>The function performs one-hot encoding on the specified columns, generating
+binary columns for each category (excluding the first level to avoid redundancy).</p>
+<section id="id17">
+<h3>Returns:<a class="headerlink" href="#id17" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>The DataFrame with the ‘neighborhood’ and ‘district’ columns one-hot encoded.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.transform_data.TransformData.convert_bool_columns">
+<span class="sig-name descname"><span class="pre">convert_bool_columns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.transform_data.TransformData.convert_bool_columns" title="Link to this definition">¶</a></dt>
+<dd><p>Converts specified columns to boolean values, filling nulls with False.</p>
+<p>The columns are:
+- ‘hasLift’, ‘hasVideo’, ‘has3DTour’, ‘has360’, ‘hasStaging’, ‘hasPlan’,</p>
+<blockquote>
+<div><p>‘newDevelopment’, ‘topPlus’, ‘exterior’, ‘parkingSpace.hasParkingSpace’.</p>
+</div></blockquote>
+<p>The function converts the values in these columns to boolean values, and 
+then to integers (0 for False, 1 for True).</p>
+<section id="id18">
+<h3>Returns:<a class="headerlink" href="#id18" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>The DataFrame with the specified columns converted to boolean (then integer) values.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.transform_data.TransformData.create_amenity_score">
+<span class="sig-name descname"><span class="pre">create_amenity_score</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.transform_data.TransformData.create_amenity_score" title="Link to this definition">¶</a></dt>
+<dd><p>Creates an amenity score based on the sum of boolean amenity columns.</p>
+<p>The amenity score is calculated by summing up the boolean values in the following columns:
+- ‘hasLift’, ‘hasVideo’, ‘has3DTour’, ‘has360’, ‘hasStaging’, ‘has3DTour’,</p>
+<blockquote>
+<div><p>‘hasPlan’, ‘newDevelopment’, ‘topPlus’, ‘exterior’, ‘parkingSpace.hasParkingSpace’.</p>
+</div></blockquote>
+<section id="id19">
+<h3>Returns:<a class="headerlink" href="#id19" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>The DataFrame with the ‘amenity.score’ column added.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.transform_data.TransformData.create_new_features">
+<span class="sig-name descname"><span class="pre">create_new_features</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.transform_data.TransformData.create_new_features" title="Link to this definition">¶</a></dt>
+<dd><p>Creates new features based on existing columns.</p>
+<p>The following new features are created:
+- ‘rooms+bathrooms’ = sum of rooms and bathrooms.
+- ‘room.to.size.ratio’ = ratio of rooms to size.
+- ‘room+bathrooms.to.size.ratio’ = ratio of rooms and bathrooms to size.</p>
+<section id="id20">
+<h3>Returns:<a class="headerlink" href="#id20" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>The DataFrame with the newly created features.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.transform_data.TransformData.drop_unnecessary_columns">
+<span class="sig-name descname"><span class="pre">drop_unnecessary_columns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.transform_data.TransformData.drop_unnecessary_columns" title="Link to this definition">¶</a></dt>
+<dd><p>Drop unnecessary columns from the DataFrame.</p>
+<section id="id21">
+<h3>Returns<a class="headerlink" href="#id21" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>The updated DataFrame after dropping columns.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.transform_data.TransformData.fill_floor">
+<span class="sig-name descname"><span class="pre">fill_floor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.transform_data.TransformData.fill_floor" title="Link to this definition">¶</a></dt>
+<dd><p>Maps letter values for floor levels and adjusts numeric floor levels according to specified rules.</p>
+<p>The function handles the following:
+- Maps letter values (‘en’, ‘bj’, ‘st’, ‘ss’) to numeric values.
+- Maps floor values greater than or equal to 7 to 7.
+- Fills missing floor values based on property type:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>For ‘chalet’ and ‘countryHouse’, sets floor value to 8.</p></li>
+<li><p>For missing floors in other property types, sets the floor value to 2.</p></li>
+</ul>
+</div></blockquote>
+<section id="id22">
+<h3>Returns:<a class="headerlink" href="#id22" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>The DataFrame with the adjusted ‘floor’ column.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.transform_data.TransformData.filters">
+<span class="sig-name descname"><span class="pre">filters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.transform_data.TransformData.filters" title="Link to this definition">¶</a></dt>
+<dd><p>Remove duplicates based on propertyCode and filter rows for specific conditions.</p>
+<section id="id23">
+<h3>Returns<a class="headerlink" href="#id23" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>The updated DataFrame after filtering.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.transform_data.TransformData.join_with_district_prices">
+<span class="sig-name descname"><span class="pre">join_with_district_prices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.transform_data.TransformData.join_with_district_prices" title="Link to this definition">¶</a></dt>
+<dd><p>Join the DataFrame with district-level price data from the file saved in the same folder.</p>
+<section id="id24">
+<h3>Parameters<a class="headerlink" href="#id24" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>file<span class="classifier">str</span></dt><dd><p>The path to the file containing district price data.</p>
+</dd>
+</dl>
+</section>
+<section id="id25">
+<h3>Returns<a class="headerlink" href="#id25" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>The updated DataFrame after joining.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.transform_data.TransformData.map_group_description">
+<span class="sig-name descname"><span class="pre">map_group_description</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.transform_data.TransformData.map_group_description" title="Link to this definition">¶</a></dt>
+<dd><p>Maps group descriptions to numerical values for encoding.</p>
+<p>The mapping is as follows:
+- ‘Destacado’ -&gt; 1
+- ‘Top’ -&gt; 2
+- ‘Top+’ -&gt; 3
+Any missing or unrecognized group description is mapped to 0.</p>
+<section id="id26">
+<h3>Returns:<a class="headerlink" href="#id26" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>The DataFrame with the ‘highlight.groupDescription’ column mapped to numeric values.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.transform_data.TransformData.map_prop_type">
+<span class="sig-name descname"><span class="pre">map_prop_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.transform_data.TransformData.map_prop_type" title="Link to this definition">¶</a></dt>
+<dd><p>Maps property type to integer values and fills missing values with 0.</p>
+<p>Property types are mapped as follows:
+- ‘studio’ -&gt; 0
+- ‘flat’ -&gt; 1
+- ‘penthouse’, ‘duplex’ -&gt; 2
+- ‘chalet’, ‘countryHouse’ -&gt; 3</p>
+<section id="id27">
+<h3>Returns:<a class="headerlink" href="#id27" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>The DataFrame with the ‘propertyType’ column mapped to integers.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.transform_data.TransformData.map_status">
+<span class="sig-name descname"><span class="pre">map_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.transform_data.TransformData.map_status" title="Link to this definition">¶</a></dt>
+<dd><p>Map the ‘status’ column to integer values and fill missing values.</p>
+<section id="id28">
+<h3>Returns<a class="headerlink" href="#id28" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>The updated DataFrame with mapped ‘status’.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.transform_data.TransformData.remove_outliers">
+<span class="sig-name descname"><span class="pre">remove_outliers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.transform_data.TransformData.remove_outliers" title="Link to this definition">¶</a></dt>
+<dd><p>Remove outliers in specified columns based on the IQR method.</p>
+<section id="id29">
+<h3>Returns<a class="headerlink" href="#id29" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>The updated DataFrame after removing outliers.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api_extract_prep.eda_and_transformations.transform_data.TransformData.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#api_extract_prep.eda_and_transformations.transform_data.TransformData.transform" title="Link to this definition">¶</a></dt>
+<dd><p>Applies all the transformation functions in sequence to clean and prepare the DataFrame.</p>
+<p>The transformations include filtering, dropping columns, removing outliers, 
+mapping status and property types, filling missing values, creating new features,
+applying one-hot encoding, and more.</p>
+<section id="id30">
+<h3>Returns:<a class="headerlink" href="#id30" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>The transformed DataFrame.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function" id="module-api_extract_prep.main_api_extract_prep">
+<dt class="sig sig-object py" id="api_extract_prep.main_api_extract_prep.main">
+<span class="sig-prename descclassname"><span class="pre">api_extract_prep.main_api_extract_prep.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api_extract_prep.main_api_extract_prep.main" title="Link to this definition">¶</a></dt>
+<dd><p>Main function to orchestrate the data extraction, transformation, and saving process.</p>
+<p>This function performs the following steps:
+1. Extracts data from the Idealista API (currently commented out).
+2. Reads data from MongoDB using MongoDBHandler.
+3. Creates a DataFrame from the MongoDB data.
+4. Applies transformations to the data using the TransformData class.
+5. Saves the transformed data to a CSV file with the current date in the filename.</p>
+<p>The transformed data is saved in the ‘api_extract_prep/preprocessed_data/’ directory.</p>
+<dl class="simple">
+<dt>Steps:</dt><dd><ol class="arabic simple">
+<li><p><strong>Extract Data</strong>: The <cite>IdealistaAPI</cite> class is used to extract data from the Idealista API and save it to MongoDB. This step is currently commented out.</p></li>
+<li><p><strong>Read Data</strong>: The <cite>MongoDBHandler</cite> is used to read the extracted data from MongoDB.</p></li>
+<li><p><strong>Transform Data</strong>: The data is processed using the <cite>TransformData</cite> class to apply necessary transformations (e.g., handling duplicates).</p></li>
+<li><p><strong>Save Transformed Data</strong>: The transformed data is saved to a CSV file, named with the current date for easy identification.</p></li>
+</ol>
+</dd>
+<dt>Example:</dt><dd><dl class="simple">
+<dt>Running the <cite>main()</cite> function will:</dt><dd><ul class="simple">
+<li><p>Fetch the data from MongoDB,</p></li>
+<li><p>Transform it according to the specified rules,</p></li>
+<li><p>Save it to a CSV file in the ‘preprocessed_data’ directory.</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-modelling.train_and_evaluate_models">
+<span id="modelling"></span><h1>Modelling<a class="headerlink" href="#module-modelling.train_and_evaluate_models" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="modelling.train_and_evaluate_models.ModelTrainer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">modelling.train_and_evaluate_models.</span></span><span class="sig-name descname"><span class="pre">ModelTrainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metrics_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#modelling.train_and_evaluate_models.ModelTrainer" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class for training multiple regression models and evaluating their performance.</p>
+<p>The ModelTrainer class provides methods to train and evaluate different regression models, 
+calculate evaluation metrics (R², RMSE, MAE, MAPE, ME, MPE), and save the results to an Excel file.
+It supports multiple models including Linear Regression, Decision Trees, Random Forest, 
+Gradient Boosting, and XGBoost.</p>
+<section id="id31">
+<h2>Parameters<a class="headerlink" href="#id31" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>metrics_file_path<span class="classifier">str</span></dt><dd><p>Path to the Excel file where metrics will be saved.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="modelling.train_and_evaluate_models.ModelTrainer.calculate_metrics">
+<span class="sig-name descname"><span class="pre">calculate_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#modelling.train_and_evaluate_models.ModelTrainer.calculate_metrics" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate various regression metrics for model evaluation.</p>
+<p>This method calculates R², RMSE, MAE, MAPE, ME, and MPE between the true values
+and the predicted values.</p>
+<section id="id32">
+<h3>Parameters<a class="headerlink" href="#id32" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>y_true<span class="classifier">array-like</span></dt><dd><p>True target values.</p>
+</dd>
+<dt>y_pred<span class="classifier">array-like</span></dt><dd><p>Predicted target values.</p>
+</dd>
+</dl>
+</section>
+<section id="id33">
+<h3>Returns<a class="headerlink" href="#id33" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>tuple</dt><dd><p>A tuple containing the metrics (R², RMSE, MAE, MAPE, ME, MPE).</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modelling.train_and_evaluate_models.ModelTrainer.run_linear_regression">
+<span class="sig-name descname"><span class="pre">run_linear_regression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#modelling.train_and_evaluate_models.ModelTrainer.run_linear_regression" title="Link to this definition">¶</a></dt>
+<dd><p>Train and evaluate other regression models (e.g., Decision Tree, Random Forest, Gradient Boosting, XGBoost).</p>
+<p>This method trains and evaluates various models provided in the <cite>models_params</cite> dictionary.
+It uses cross-validation and calculates evaluation metrics for both training and test sets. 
+The results are saved to an Excel file.</p>
+<section id="id34">
+<h3>Parameters<a class="headerlink" href="#id34" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>X<span class="classifier">pandas.DataFrame</span></dt><dd><p>Feature matrix (independent variables).</p>
+</dd>
+<dt>y<span class="classifier">pandas.Series</span></dt><dd><p>Target vector (dependent variable).</p>
+</dd>
+<dt>models_params<span class="classifier">dict</span></dt><dd><p>A dictionary containing model configurations, including the model object and its parameters.</p>
+</dd>
+</dl>
+</section>
+<section id="id35">
+<h3>Returns<a class="headerlink" href="#id35" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>list</dt><dd><p>A list of DataFrames containing the evaluation results for all models.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modelling.train_and_evaluate_models.ModelTrainer.run_other_models">
+<span class="sig-name descname"><span class="pre">run_other_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">models_params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#modelling.train_and_evaluate_models.ModelTrainer.run_other_models" title="Link to this definition">¶</a></dt>
+<dd><p>Train and evaluate other regression models (e.g., Decision Tree, Random Forest, Gradient Boosting, XGBoost).</p>
+<p>This method trains and evaluates various models provided in the <cite>models_params</cite> dictionary.
+It uses cross-validation and calculates evaluation metrics for both training and test sets. 
+The results are saved to an Excel file.</p>
+<section id="id36">
+<h3>Parameters<a class="headerlink" href="#id36" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>X<span class="classifier">pandas.DataFrame</span></dt><dd><p>Feature matrix (independent variables).</p>
+</dd>
+<dt>y<span class="classifier">pandas.Series</span></dt><dd><p>Target vector (dependent variable).</p>
+</dd>
+<dt>models_params<span class="classifier">dict</span></dt><dd><p>A dictionary containing model configurations, including the model object and its parameters.</p>
+</dd>
+</dl>
+</section>
+<section id="id37">
+<h3>Returns<a class="headerlink" href="#id37" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>list</dt><dd><p>A list of DataFrames containing the evaluation results for all models.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modelling.train_and_evaluate_models.ModelTrainer.save_metrics_to_excel">
+<span class="sig-name descname"><span class="pre">save_metrics_to_excel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#modelling.train_and_evaluate_models.ModelTrainer.save_metrics_to_excel" title="Link to this definition">¶</a></dt>
+<dd><p>Save the evaluation metrics to an Excel file.</p>
+<p>This method appends the evaluation metrics to an existing Excel file or creates a 
+new file if it doesn’t exist. The metrics are stored in the ‘Metrics’ sheet of the file.</p>
+<section id="id38">
+<h3>Parameters<a class="headerlink" href="#id38" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>metrics<span class="classifier">dict</span></dt><dd><p>A dictionary containing the evaluation metrics.</p>
+</dd>
+</dl>
+</section>
+<section id="id39">
+<h3>Returns<a class="headerlink" href="#id39" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>None</dt><dd><p>This method does not return any value. It saves the metrics to an Excel file.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class" id="module-modelling.train_and_predict_selected_model">
+<dt class="sig sig-object py" id="modelling.train_and_predict_selected_model.GradientBoostingTrainPredict">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">modelling.train_and_predict_selected_model.</span></span><span class="sig-name descname"><span class="pre">GradientBoostingTrainPredict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mongo_handler</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#api_extract_prep.mongodb_operations.insert_read_data.MongoDBHandler" title="api_extract_prep.mongodb_operations.insert_read_data.MongoDBHandler"><span class="pre">MongoDBHandler</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#modelling.train_and_predict_selected_model.GradientBoostingTrainPredict" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class uses a Gradient Boosting Regressor to predict property prices based on input features. 
+It trains the model using historical data, predicts the prices for new data, filters undervalued 
+properties (where actual price is 10% lower than the predicted price), enriches the undervalued properties dataset with
+additional data from MongoDB (adding the non-processed columns previously transformed), and saves the final result to a CSV file for further analysis.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="modelling.train_and_predict_selected_model.GradientBoostingTrainPredict.save_undervalued_prop">
+<span class="sig-name descname"><span class="pre">save_undervalued_prop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_new</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#modelling.train_and_predict_selected_model.GradientBoostingTrainPredict.save_undervalued_prop" title="Link to this definition">¶</a></dt>
+<dd><p>Process the data, filter undervalued properties, and join with MongoDB data, then save to CSV.</p>
+<section id="id40">
+<h2>Parameters<a class="headerlink" href="#id40" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>df<span class="classifier">pd.DataFrame</span></dt><dd><p>The training data.</p>
+</dd>
+<dt>df_new<span class="classifier">pd.DataFrame</span></dt><dd><p>The new data for prediction.</p>
+</dd>
+</dl>
+</section>
+<section id="id41">
+<h2>Returns<a class="headerlink" href="#id41" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>None</dt><dd><p>This method does not return any value. It saves the final dataframe to a CSV file.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modelling.train_and_predict_selected_model.GradientBoostingTrainPredict.train_and_predict">
+<span class="sig-name descname"><span class="pre">train_and_predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_new</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#modelling.train_and_predict_selected_model.GradientBoostingTrainPredict.train_and_predict" title="Link to this definition">¶</a></dt>
+<dd><p>Train the GradientBoostingRegressor model on the provided dataset and generate predictions
+for the new dataset.</p>
+<section id="id42">
+<h2>Parameters<a class="headerlink" href="#id42" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>df<span class="classifier">pd.DataFrame</span></dt><dd><p>Training dataset containing features and target.</p>
+</dd>
+<dt>df_new<span class="classifier">pd.DataFrame</span></dt><dd><p>New dataset to predict on.</p>
+</dd>
+</dl>
+</section>
+<section id="id43">
+<h2>Returns<a class="headerlink" href="#id43" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>DataFrame with additional column ‘price_prediction’.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function" id="module-modelling.main_evaluate_and_predict">
+<dt class="sig sig-object py" id="modelling.main_evaluate_and_predict.main">
+<span class="sig-prename descclassname"><span class="pre">modelling.main_evaluate_and_predict.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#modelling.main_evaluate_and_predict.main" title="Link to this definition">¶</a></dt>
+<dd><p>Main function to train multiple regression models, evaluate their performance, and 
+predict undervalued properties using Gradient Boosting. The function performs the following steps:</p>
+<ol class="arabic simple">
+<li><p>Loads the training data and prepares feature and target variables.</p></li>
+<li><p>Defines and trains multiple models (Decision Tree, Random Forest, Gradient Boosting, XGBoost).</p></li>
+<li><p>Evaluates and saves model metrics to the Excel file.</p></li>
+<li><p>Loads new data for prediction.</p></li>
+<li><p>Identifies undervalued properties using Gradient Boosting Regressor (the best model chosen) and saves the results to a CSV file.</p></li>
+</ol>
+<dl class="simple">
+<dt>Steps:</dt><dd><ol class="arabic simple">
+<li><p><strong>Load and Prepare Data</strong>: The data is loaded from a CSV file, and the feature and target variables are defined.</p></li>
+<li><p><strong>Define Models</strong>: The function sets up parameters for multiple models (Decision Tree, Random Forest, Gradient Boosting, XGBoost) for training.</p></li>
+<li><p><strong>Train and Evaluate Models</strong>: Models are trained, evaluated, and their metrics are saved to an Excel file using the <cite>ModelTrainer</cite> class.</p></li>
+<li><p><strong>Predict Undervalued Properties</strong>: A new dataset is loaded, and the best-performing model (Gradient Boosting) is used to predict undervalued properties, which are saved to a CSV file.</p></li>
+</ol>
+</dd>
+<dt>Arguments:</dt><dd><p>None</p>
+</dd>
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+<dt>Example:</dt><dd><dl class="simple">
+<dt>Running the <cite>main()</cite> function will:</dt><dd><ul class="simple">
+<li><p>Load and preprocess training data,</p></li>
+<li><p>Train multiple regression models,</p></li>
+<li><p>Evaluate model performance and save metrics to a file,</p></li>
+<li><p>Predict undervalued properties using the Gradient Boosting model and save results to a CSV file.</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt>Example usage:</dt><dd><p>main()</p>
+</dd>
+<dt>This function requires:</dt><dd><ul class="simple">
+<li><p><cite>train_and_evaluate_models.ModelTrainer</cite>: To train and evaluate models.</p></li>
+<li><p><cite>train_and_predict_selected_model.GradientBoostingTrainPredict</cite>: To predict undervalued properties.</p></li>
+<li><p>MongoDB connection details (via <cite>MongoDBHandler</cite>).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">TFM_IDEALISTA_API_PRICE_PRED</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">TFM</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#module-api_extract_prep.idealista_api_extractor.config">API Extract Prep</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#api_extract_prep.idealista_api_extractor.extract_data.IdealistaAPI"><code class="docutils literal notranslate"><span class="pre">IdealistaAPI</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api_extract_prep.mongodb_operations.insert_read_data.MongoDBHandler"><code class="docutils literal notranslate"><span class="pre">MongoDBHandler</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api_extract_prep.eda_and_transformations.eda_methods.EdaMethods"><code class="docutils literal notranslate"><span class="pre">EdaMethods</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api_extract_prep.eda_and_transformations.transform_data.TransformData"><code class="docutils literal notranslate"><span class="pre">TransformData</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api_extract_prep.main_api_extract_prep.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#module-modelling.train_and_evaluate_models">Modelling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#modelling.train_and_evaluate_models.ModelTrainer"><code class="docutils literal notranslate"><span class="pre">ModelTrainer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modelling.train_and_predict_selected_model.GradientBoostingTrainPredict"><code class="docutils literal notranslate"><span class="pre">GradientBoostingTrainPredict</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modelling.main_evaluate_and_predict.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">TFM_IDEALISTA_API_PRICE_PRED documentation</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Verónica García de Olalla Blancafort.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.1.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/modules.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
