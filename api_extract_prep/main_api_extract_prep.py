@@ -17,17 +17,10 @@ def main():
     """
     Main function to orchestrate the data extraction, transformation, and saving process.
 
-    This function performs the following steps:
-    1. Extracts data from the Idealista API (currently commented out).
-    2. Reads data from MongoDB using MongoDBHandler.
-    3. Creates a DataFrame from the MongoDB data.
-    4. Applies transformations to the data using the TransformData class.
-    5. Saves the transformed data to a CSV file with the current date in the filename.
-
     The transformed data is saved in the 'api_extract_prep/preprocessed_data/' directory.
 
     Steps:
-        1. **Extract Data**: The `IdealistaAPI` class is used to extract data from the Idealista API and save it to MongoDB. This step is currently commented out.
+        1. **Extract Data**: The `IdealistaAPI` class is used to extract data from the Idealista API and save it to MongoDB. 
         2. **Read Data**: The `MongoDBHandler` is used to read the extracted data from MongoDB.
         3. **Transform Data**: The data is processed using the `TransformData` class to apply necessary transformations (e.g., handling duplicates).
         4. **Save Transformed Data**: The transformed data is saved to a CSV file, named with the current date for easy identification.
@@ -39,8 +32,8 @@ def main():
             - Save it to a CSV file in the 'preprocessed_data' directory.
     """
     #Step 1: Extract data from the API and save it to MongoDB
-    # api_handler = IdealistaAPI()  # Initialize Idealista API handler
-    # api_handler.extract_api_data()  # Extract data and save to MongoDB
+    api_handler = IdealistaAPI()  # Initialize Idealista API handler
+    api_handler.extract_api_data()  # Extract data and save to MongoDB
 
     # Step 2: Read data from MongoDB
     mongo_handler = MongoDBHandler()  # Initialize MongoDB handler
@@ -51,9 +44,7 @@ def main():
 
     # Step 4: Apply transformations using the TransformData class
     transformer = TransformData(df)  # Instantiate the transformer with the DataFrame
-    # Apply all transformations, in this step we are removing duplicated and other transformations
-    # In case duplicate properties are added in previous steps
-    preprocessed_df = transformer.transform()  
+    preprocessed_df = transformer.transform()  # Apply all transformations
 
     # Step 5: Save the transformed data to a CSV file with the current date in the file name
     current_date = datetime.now().strftime("%Y-%m-%d")  # Get the current date in YYYY-MM-DD format

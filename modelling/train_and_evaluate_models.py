@@ -158,8 +158,8 @@ class ModelTrainer:
         results = pd.DataFrame({
             'date': [pd.Timestamp.today().strftime('%Y-%m-%d')],
             'model_type': ['Linear Regression'],
-            'predictor_variables': [', '.join(X.columns)],  # Add feature names to this column
-            'model_parameters': [model_params],  # Add model parameters to this column
+            'predictor_variables': [', '.join(X.columns)],  
+            'model_parameters': [model_params],  
             'train_r2_mean': [mean_train_metrics[0]],
             'train_rmse_mean': [mean_train_metrics[1]],
             'train_mae_mean': [mean_train_metrics[2]],
@@ -229,8 +229,8 @@ class ModelTrainer:
             results = pd.DataFrame({
                 'date': [pd.Timestamp.today().strftime('%Y-%m-%d')],
                 'model_type': [model_name],
-                'predictor_variables': [', '.join(X.columns)],  # Add feature names to this column
-                'model_parameters': [model_params],  # Add model parameters to this column
+                'predictor_variables': [', '.join(X.columns)],  
+                'model_parameters': [model_params], 
                 'train_r2_mean': [mean_train_metrics[0]],
                 'train_rmse_mean': [mean_train_metrics[1]],
                 'train_mae_mean': [mean_train_metrics[2]],
